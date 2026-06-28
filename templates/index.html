@@ -9,12 +9,30 @@
 <body>
   <div class="container">
     <div class="hero">
-      <h1>AI-Powered Resume Ranker</h1>
-      <p>Upload a job description and one or more resumes to quickly surface the strongest applicants. The project also works with the uploaded dataset folder for demo and internship use.</p>
+      <div class="hero-badge">AI Recruitment Assistant</div>
+      <h1>Smart Resume Screening for Modern Hiring</h1>
+      <p>Upload a job description and one or more resumes to quickly surface the strongest applicants. The system analyzes skills, relevance, and match quality to help recruiters make faster, smarter decisions.</p>
     </div>
+
     {% if error %}
       <div class="error">{{ error }}</div>
     {% endif %}
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Fast Candidate Matching</h3>
+        <p>Compare resumes against a job description in seconds using intelligent text analysis.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Skill-Based Insights</h3>
+        <p>View matching skills, missing skills, and confidence-based ranking for each candidate.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Internship-Ready Demo</h3>
+        <p>Use the included dataset folder to showcase the project in presentations and reports.</p>
+      </div>
+    </div>
+
     <form method="post" enctype="multipart/form-data">
       <label for="job_description">Job Description (.pdf or .txt)</label>
       <input type="file" name="job_description" id="job_description" accept=".pdf,.txt" required>

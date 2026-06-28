@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ranking Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Candidate Ranking</h1>
+        <p>Top candidates are listed by skill overlap and match confidence.</p>
+      </div>
+      <a class="button" href="{{ url_for('download_csv', csv_output=csv_output) }}">Download CSV</a>
+    </div>
+
+    {% if results %}
+      {% if model_metrics %}
+        <div class="metrics-grid">
+          {% for key, value in model_metrics.items() %}
+            <div class="summary-card">
+              <h3>{{ key | title }}</h3>
+              <p class="metric">{{ value }}</p>
+              <span>Model evaluation metric</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h3>Top Match</h3>
+          <p class="metric">{{ results[0].match_percentage }}%</p>
+          <span>{{ results[0].name }}</span>
+        </div>
+        <div class="summary-card">
+          <h3>Average Match</h3>
+          <p class="metric">{{ average_match }}%</p>
+          <span>Across {{ results | length }} candidates</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Match Distribution</h3>
+        <div class="chart-list">
+          {% for result in results %}
+            <div class="chart-item">
+              <div class="chart-label-row">
+                <span>{{ result.name }}</span>
+                <strong>{{ result.match_percentage }}%</strong>
+              </div>
+              <div class="chart-track">
+                <div class="chart-bar" style="width: {{ result.match_percentage }}%"></div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Candidate</th>
+          <th>Match</th>
+          <th>Matching Skills</th>
+          <th>Missing Skills</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in results %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ result.name }}</td>
+            <td>{{ result.match_percentage }}%</td>
+            <td>{{ result.matching_skills | join(', ') }}</td>
+            <td>{{ result.missing_skills | join(', ') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

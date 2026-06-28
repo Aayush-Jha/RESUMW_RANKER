@@ -1,0 +1,1 @@
+I am a Python developer with strong experience in Django, Flask, and SQL. I have built backend APIs and worked with relational databases in production environments. I also have a good understanding of machine learning and data pipelines.

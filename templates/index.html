@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Resume Ranker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>AI-Powered Resume Ranker</h1>
+      <p>Upload a job description and one or more resumes to quickly surface the strongest applicants. The project also works with the uploaded dataset folder for demo and internship use.</p>
+    </div>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+      <label for="job_description">Job Description (.pdf or .txt)</label>
+      <input type="file" name="job_description" id="job_description" accept=".pdf,.txt" required>
+
+      <label for="resumes">Resumes (.pdf or .txt)</label>
+      <input type="file" name="resumes" id="resumes" accept=".pdf,.txt" multiple required>
+
+      <button type="submit">Rank Resumes</button>
+    </form>
+
+    <div class="helper-box">
+      <h3>Use the uploaded dataset</h3>
+      <p>You can also use the included dataset folder as a demo source for your internship presentation and project report.</p>
+    </div>
+  </div>
+</body>
+</html>
